@@ -1,6 +1,5 @@
-import React, {useReducer} from 'react';
+import React from 'react';
 import Todo from "./Todo";
-import { reducer, initialState } from "../reducers/reducer";
 import styled from "styled-components";
 
 const ListStyle = styled.div`
@@ -21,28 +20,13 @@ const ListStyle = styled.div`
     }
 `
 
-export default function TodoList() {
-    const [todos, dispatch] = useReducer(reducer, initialState.todos)
-
-    function toggleTodoCompleteAtIndex(id) {
-        const updatedTodos = todos.map(todo => {
-          return todo.id === id ? { ...todo, completed: !todo.completed } : todo;
-        });
-        dispatch({type: 'TOGGLE_COMPLETED_FIELD', payload: updatedTodos})
-        
-    }
-
-    const clearCompleted = (e) => {
-        e.preventDefault();
-        const todosArray = todos.filter(todo => !todo.completed)
-        dispatch({type: 'CLEAR_COMPLETED', payload: todosArray})
-    };
+export default function TodoList({todos, clearCompleted, toggleTodoCompleteAtIndex}) {
+      
 
     return (
         <ListStyle>
             <div>
                 {todos.map((todo) => {
-                    // debugger
                     return <Todo todo={todo} key={todo.id} onClick={toggleTodoCompleteAtIndex}/>
                 })}
             </div>

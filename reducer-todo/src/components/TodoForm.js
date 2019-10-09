@@ -1,5 +1,4 @@
-import React, {useReducer} from 'react';
-import { reducer, initialState } from "../reducers/reducer";
+import React from 'react';
 import styled from "styled-components";
 
 const FormStyle = styled.div`
@@ -28,25 +27,12 @@ const FormStyle = styled.div`
     }
 
 `
-// const initialFormValue = {name: ''}
-export default function Todoform() {
-    const [formValues, dispatch] = useReducer(reducer, initialState.name)
-    // const {onInputChange, onClick} = props;
-    const addTodo = e => {
 
-        // debugger
-        // const newTodo = {
-        //     task: formValues.todo,
-        //     id: Date.now(),
-        //     completed: false
-        // };
-        e.preventDefault();
-        dispatch({type: 'ADD_TODO'})
-        
-    }
+export default function Todoform({value, onInputChange, addTodo}) {
+    
     return(
         <FormStyle>
-            <input name ='todo' type='text' value={formValues.value} placeholder='...todo' onChange={(e) => dispatch({type: 'INPUT_CHANGE', payload: { name: e.target.name, value:e.target.value}})} />
+            <input name ='todo' type='text' value={value} placeholder='...todo' onChange={onInputChange} />
             <button onClick={addTodo} >Add Todo</button>
         </FormStyle>
     )
